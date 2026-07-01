@@ -553,14 +553,17 @@
     ];
     let titleIdx = 0, charIdx = 0, deleting = false;
     const typedEl = document.getElementById('typed-text');
+    const cursorEl = document.querySelector('.cursor');
 
     function type() {
       const current = titles[titleIdx];
+      const isLast = titleIdx === titles.length - 1;
+
       if (deleting) {
         typedEl.textContent = current.slice(0, --charIdx);
         if (charIdx === 0) {
           deleting = false;
-          titleIdx = (titleIdx + 1) % titles.length;
+          titleIdx++;
           setTimeout(type, 400);
           return;
         }
@@ -568,6 +571,11 @@
       } else {
         typedEl.textContent = current.slice(0, ++charIdx);
         if (charIdx === current.length) {
+          if (isLast) {
+            // Last title fully typed — stop and hide cursor
+            setTimeout(() => { cursorEl.style.display = 'none'; }, 1000);
+            return;
+          }
           deleting = true;
           setTimeout(type, 1800);
           return;
