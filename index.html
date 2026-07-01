@@ -92,31 +92,12 @@
       margin-bottom: 12px;
     }
 
-    /* TYPING EFFECT */
     .hero-subtitle {
       font-size: clamp(1rem, 2vw, 1.3rem);
       color: var(--text2);
       margin-bottom: 32px;
       max-width: 600px;
     }
-    .typing-line {
-      display: flex; align-items: center; gap: 0;
-      color: var(--accent2);
-      font-weight: 600;
-      font-size: clamp(1rem, 2vw, 1.25rem);
-      margin-bottom: 8px;
-      min-height: 1.6em;
-    }
-    #typed-text { display: inline; }
-    .cursor {
-      display: inline-block;
-      width: 2px; height: 1.1em;
-      background: var(--accent);
-      margin-left: 3px;
-      vertical-align: text-bottom;
-      animation: blink 0.9s step-end infinite;
-    }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
     .hero-cta {
       display: flex; gap: 16px; flex-wrap: wrap;
@@ -282,9 +263,7 @@
     </div>
     <h1>Nilofar<br>Siddiqui</h1>
     <div class="hero-subtitle">
-      <div class="typing-line">
-        <span id="typed-text"></span><span class="cursor"></span>
-      </div>
+      <span style="color:var(--accent2);font-weight:600;">Data Analyst · Analytics Engineer · Data Scientist</span><br>
       Turning complex data into decisions that actually move the needle.
     </div>
     <div class="hero-cta">
@@ -544,46 +523,6 @@
   </footer>
 
   <script>
-    // ─── TYPING EFFECT ───────────────────────────────────────────────────────
-    const titles = [
-      'Data Analyst',
-      'Analytics Engineer',
-      'Data Scientist',
-      'BI Developer',
-    ];
-    let titleIdx = 0, charIdx = 0, deleting = false;
-    const typedEl = document.getElementById('typed-text');
-    const cursorEl = document.querySelector('.cursor');
-
-    function type() {
-      const current = titles[titleIdx];
-      const isLast = titleIdx === titles.length - 1;
-
-      if (deleting) {
-        typedEl.textContent = current.slice(0, --charIdx);
-        if (charIdx === 0) {
-          deleting = false;
-          titleIdx++;
-          setTimeout(type, 400);
-          return;
-        }
-        setTimeout(type, 60);
-      } else {
-        typedEl.textContent = current.slice(0, ++charIdx);
-        if (charIdx === current.length) {
-          if (isLast) {
-            // Last title fully typed — stop and hide cursor
-            setTimeout(() => { cursorEl.style.display = 'none'; }, 1000);
-            return;
-          }
-          deleting = true;
-          setTimeout(type, 1800);
-          return;
-        }
-        setTimeout(type, 80);
-      }
-    }
-    type();
 
     // ─── STAT COUNTERS ────────────────────────────────────────────────────────
     function animateCounter(el) {
