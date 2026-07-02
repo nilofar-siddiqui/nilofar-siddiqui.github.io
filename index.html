@@ -27,9 +27,16 @@
       line-height: 1.6;
     }
 
+    /* SCROLL PROGRESS BAR */
+    #progress-bar {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--purple));
+      z-index: 200; transition: width 0.1s linear;
+    }
+
     /* NAV */
     nav {
-      position: fixed; top: 0; left: 0; right: 0;
+      position: fixed; top: 3px; left: 0; right: 0;
       z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
       padding: 16px 40px;
@@ -41,6 +48,7 @@
     .nav-links { display: flex; gap: 28px; list-style: none; }
     .nav-links a { color: var(--text2); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
     .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--accent2); }
 
     /* PROJECTS */
     .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
@@ -175,19 +183,44 @@
     h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 48px; }
     h2 .dim { color: var(--text2); }
 
-    /* EXPERIENCE */
+    /* HERO GLOW */
+    .hero-glow {
+      position: absolute; border-radius: 50%; pointer-events: none;
+      background: radial-gradient(circle, rgba(79,142,247,0.1) 0%, transparent 70%);
+      width: 600px; height: 600px;
+      top: -100px; right: -100px;
+      transition: transform 0.3s ease;
+    }
+
+    /* EXPERIENCE ACCORDION */
     .exp-list { display: flex; flex-direction: column; gap: 0; }
     .exp-item {
       display: grid; grid-template-columns: 1fr 3fr;
-      gap: 32px; padding: 36px 0;
+      gap: 32px; padding: 28px 0;
       border-bottom: 1px solid var(--border);
+      cursor: pointer;
     }
     .exp-item:last-child { border-bottom: none; }
+    .exp-item:hover .exp-title { color: var(--accent2); }
     .exp-meta { padding-top: 4px; }
     .exp-date { font-size: 0.8rem; color: var(--text2); font-weight: 500; }
     .exp-company { font-size: 0.85rem; color: var(--accent2); font-weight: 600; margin-top: 6px; }
     .exp-location { font-size: 0.78rem; color: var(--text2); margin-top: 2px; }
-    .exp-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; }
+    .exp-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0; }
+    .exp-title { font-size: 1.1rem; font-weight: 700; transition: color 0.2s; }
+    .exp-chevron {
+      width: 20px; height: 20px; flex-shrink: 0;
+      color: var(--text2); transition: transform 0.3s ease, color 0.2s;
+    }
+    .exp-item.open .exp-chevron { transform: rotate(180deg); color: var(--accent); }
+    .exp-body {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
+      opacity: 0;
+      margin-top: 0;
+    }
+    .exp-item.open .exp-body { max-height: 600px; opacity: 1; margin-top: 14px; }
     .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
     .exp-bullets li {
       font-size: 0.88rem; color: var(--text2); padding-left: 16px; position: relative;
@@ -285,6 +318,8 @@
 </head>
 <body>
 
+  <div id="progress-bar"></div>
+
   <!-- NAV -->
   <nav>
     <div class="nav-logo">Nilofar Siddiqui</div>
@@ -299,6 +334,7 @@
 
   <!-- HERO -->
   <section class="hero" id="hero">
+    <div class="hero-glow"></div>
     <div class="hero-badge">
       <span class="dot"></span>
       Open to opportunities · Berlin, Germany
@@ -402,22 +438,27 @@
     <h2 class="reveal reveal-delay-1">Where I've <span class="dim">shipped</span></h2>
     <div class="exp-list">
 
-      <div class="exp-item reveal">
+      <div class="exp-item open reveal">
         <div class="exp-meta">
           <div class="exp-date">Apr 2024 - Dec 2025</div>
           <div class="exp-company">Mister Sandman GmbH</div>
           <div class="exp-location">Berlin, Germany</div>
         </div>
         <div>
-          <div class="exp-title">Data &amp; BI Analyst</div>
-          <ul class="exp-bullets">
-            <li>Built production dbt pipelines across staging, intermediate, and mart layers with automated testing, data contracts, and lineage documentation, establishing a trusted data foundation for Finance, Operations, and Commercial reporting.</li>
-            <li>Developed demand forecasting models (ARIMA, XGBoost) in Python on Microsoft Fabric, improving forecast accuracy by 40% and enabling data-driven planning for leadership.</li>
-            <li>Built advanced Power BI dashboards with DAX and automated dataflows, giving Finance and Operations leadership real-time KPI visibility and reducing ad hoc requests.</li>
-            <li>Designed and standardised KPI frameworks across teams, resolving metric inconsistencies and aligning stakeholders on definitions.</li>
-            <li>Applied customer segmentation and behavioural analysis to identify value-generating patterns across purchasing and operational data.</li>
-            <li>Evaluated A/B tests and statistical experiments using rigorous hypothesis testing to measure business initiative impact.</li>
-          </ul>
+          <div class="exp-header">
+            <div class="exp-title">Data &amp; BI Analyst</div>
+            <svg class="exp-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+          <div class="exp-body">
+            <ul class="exp-bullets">
+              <li>Built production dbt pipelines across staging, intermediate, and mart layers with automated testing, data contracts, and lineage documentation, establishing a trusted data foundation for Finance, Operations, and Commercial reporting.</li>
+              <li>Developed demand forecasting models (ARIMA, XGBoost) in Python on Microsoft Fabric, improving forecast accuracy by 40% and enabling data-driven planning for leadership.</li>
+              <li>Built advanced Power BI dashboards with DAX and automated dataflows, giving Finance and Operations leadership real-time KPI visibility and reducing ad hoc requests.</li>
+              <li>Designed and standardised KPI frameworks across teams, resolving metric inconsistencies and aligning stakeholders on definitions.</li>
+              <li>Applied customer segmentation and behavioural analysis to identify value-generating patterns across purchasing and operational data.</li>
+              <li>Evaluated A/B tests and statistical experiments using rigorous hypothesis testing to measure business initiative impact.</li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -428,13 +469,18 @@
           <div class="exp-location">Berlin, Germany</div>
         </div>
         <div>
-          <div class="exp-title">Working Student: Data Analyst &amp; Application Administrator</div>
-          <ul class="exp-bullets">
-            <li>Built predictive models in Python and R for loan repayment forecasting across a portfolio of microfinance institutions, supporting risk monitoring and decision-making.</li>
-            <li>Delivered monthly analytics reports translating complex financial and operational data across multiple markets into clear insights for leadership.</li>
-            <li>Built Qlik dashboards tracking financial and HR KPIs, replacing manual Excel reporting and enabling self-service analytics.</li>
-            <li>Used Google Analytics 4 to track campaign performance and user behaviour, informing marketing strategy.</li>
-          </ul>
+          <div class="exp-header">
+            <div class="exp-title">Working Student: Data Analyst &amp; Application Administrator</div>
+            <svg class="exp-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+          <div class="exp-body">
+            <ul class="exp-bullets">
+              <li>Built predictive models in Python and R for loan repayment forecasting across a portfolio of microfinance institutions, supporting risk monitoring and decision-making.</li>
+              <li>Delivered monthly analytics reports translating complex financial and operational data across multiple markets into clear insights for leadership.</li>
+              <li>Built Qlik dashboards tracking financial and HR KPIs, replacing manual Excel reporting and enabling self-service analytics.</li>
+              <li>Used Google Analytics 4 to track campaign performance and user behaviour, informing marketing strategy.</li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -445,12 +491,17 @@
           <div class="exp-location">London, UK</div>
         </div>
         <div>
-          <div class="exp-title">Senior Associate - Production Services, Settlements</div>
-          <ul class="exp-bullets">
-            <li>Cut support ticket volume by 20% by building the statistical business case for a conversational AI tool, which was prioritised and successfully delivered.</li>
-            <li>Developed Splunk dashboards monitoring operational KPIs and user behaviour patterns for data-driven prioritisation.</li>
-            <li>Conducted root cause analysis on data quality issues in financial settlement pipelines, identifying failure patterns and preventing recurrence.</li>
-          </ul>
+          <div class="exp-header">
+            <div class="exp-title">Senior Associate - Production Services, Settlements</div>
+            <svg class="exp-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+          <div class="exp-body">
+            <ul class="exp-bullets">
+              <li>Cut support ticket volume by 20% by building the statistical business case for a conversational AI tool, which was prioritised and successfully delivered.</li>
+              <li>Developed Splunk dashboards monitoring operational KPIs and user behaviour patterns for data-driven prioritisation.</li>
+              <li>Conducted root cause analysis on data quality issues in financial settlement pipelines, identifying failure patterns and preventing recurrence.</li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -461,11 +512,16 @@
           <div class="exp-location">Production for Nomura</div>
         </div>
         <div>
-          <div class="exp-title">Support Analyst - Reference Data</div>
-          <ul class="exp-bullets">
-            <li>Cut manual effort by 30% by automating data health checks across 7 production applications, quality controls that became team standard.</li>
-            <li>Maintained zero reporting failures across 2.5 years through structured root cause investigations.</li>
-          </ul>
+          <div class="exp-header">
+            <div class="exp-title">Support Analyst - Reference Data</div>
+            <svg class="exp-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+          <div class="exp-body">
+            <ul class="exp-bullets">
+              <li>Cut manual effort by 30% by automating data health checks across 7 production applications, quality controls that became team standard.</li>
+              <li>Maintained zero reporting failures across 2.5 years through structured root cause investigations.</li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -476,11 +532,16 @@
           <div class="exp-location">Production for GE Fleet Leasing</div>
         </div>
         <div>
-          <div class="exp-title">System Engineer</div>
-          <ul class="exp-bullets">
-            <li>Authored, validated, and deployed SQL transformation scripts for regulatory reporting, maintaining data integrity and compliance standards.</li>
-            <li>Managed ETL pipelines and batch processes ensuring timely, reliable delivery of operational reporting data.</li>
-          </ul>
+          <div class="exp-header">
+            <div class="exp-title">System Engineer</div>
+            <svg class="exp-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+          </div>
+          <div class="exp-body">
+            <ul class="exp-bullets">
+              <li>Authored, validated, and deployed SQL transformation scripts for regulatory reporting, maintaining data integrity and compliance standards.</li>
+              <li>Managed ETL pipelines and batch processes ensuring timely, reliable delivery of operational reporting data.</li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -629,8 +690,41 @@
   </footer>
 
   <script>
+    // ─── SCROLL PROGRESS BAR ─────────────────────────────────────────────────
+    const progressBar = document.getElementById('progress-bar');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+    }, { passive: true });
 
-    // ─── STAT COUNTERS ────────────────────────────────────────────────────────
+    // ─── ACTIVE NAV HIGHLIGHTING ─────────────────────────────────────────────
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(a => a.classList.remove('active'));
+          const link = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+          if (link) link.classList.add('active');
+        }
+      });
+    }, { threshold: 0.4 });
+    sections.forEach(s => navObserver.observe(s));
+
+    // ─── HERO PARALLAX GLOW ──────────────────────────────────────────────────
+    const heroSection = document.querySelector('.hero');
+    const heroGlow = document.querySelector('.hero-glow');
+    if (heroSection && heroGlow) {
+      heroSection.addEventListener('mousemove', (e) => {
+        const rect = heroSection.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        heroGlow.style.transform = `translate(${x * 40}px, ${y * 40}px)`;
+      });
+    }
+
+    // ─── STAT COUNTERS ───────────────────────────────────────────────────────
     function animateCounter(el) {
       const target = parseInt(el.dataset.target);
       const suffix = el.dataset.suffix || '';
@@ -646,7 +740,7 @@
       requestAnimationFrame(update);
     }
 
-    // ─── INTERSECTION OBSERVER (scroll reveal + stat counters) ───────────────
+    // ─── SCROLL REVEAL ───────────────────────────────────────────────────────
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -655,10 +749,9 @@
         }
       });
     }, { threshold: 0.12 });
-
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    // Stat counters fire once when stats come into view
+    // Stat counters fire once when stats scroll into view
     const statEls = document.querySelectorAll('.stat-val[data-target]');
     let statsAnimated = false;
     const statObserver = new IntersectionObserver((entries) => {
@@ -672,7 +765,14 @@
     }, { threshold: 0.5 });
     if (statEls.length) statObserver.observe(statEls[0].closest('.stats'));
 
-    // ─── SKILL FILTER ─────────────────────────────────────────────────────────
+    // ─── EXPERIENCE ACCORDION ────────────────────────────────────────────────
+    document.querySelectorAll('.exp-item').forEach(item => {
+      item.addEventListener('click', () => {
+        item.classList.toggle('open');
+      });
+    });
+
+    // ─── SKILL FILTER ────────────────────────────────────────────────────────
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
