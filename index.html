@@ -303,6 +303,56 @@
     .cert-name { font-size: 0.88rem; font-weight: 600; line-height: 1.4; }
     .cert-issuer { font-size: 0.76rem; color: var(--accent2); margin-top: 3px; }
 
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .about-text p { color: var(--text2); font-size: 0.95rem; line-height: 1.8; margin-bottom: 16px; }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-highlights { display: flex; flex-direction: column; gap: 16px; }
+    .about-highlight {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 16px 18px;
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 10px;
+      transition: border-color 0.2s;
+    }
+    .about-highlight:hover { border-color: var(--accent); }
+    .about-highlight-icon { color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+    .about-highlight-title { font-size: 0.88rem; font-weight: 700; margin-bottom: 3px; }
+    .about-highlight-desc { font-size: 0.8rem; color: var(--text2); }
+
+    /* FEATURED PROJECT */
+    .featured-project {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden; margin-bottom: 32px;
+    }
+    .featured-project-inner { display: grid; grid-template-columns: 1fr 1fr; }
+    .featured-project-content { padding: 40px; display: flex; flex-direction: column; justify-content: space-between; }
+    .featured-label {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 16px;
+    }
+    .featured-label::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+    .featured-title { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; }
+    .featured-desc { font-size: 0.88rem; color: var(--text2); line-height: 1.7; margin-bottom: 20px; flex: 1; }
+    .featured-metrics { display: flex; gap: 24px; margin-bottom: 24px; }
+    .featured-metric-val { font-size: 1.4rem; font-weight: 800; color: var(--accent2); letter-spacing: -0.03em; }
+    .featured-metric-label { font-size: 0.72rem; color: var(--text2); margin-top: 2px; }
+    .featured-project-visuals {
+      background: var(--bg3); border-left: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 0; overflow: hidden;
+    }
+    .featured-plot {
+      flex: 1; overflow: hidden; border-bottom: 1px solid var(--border); position: relative;
+    }
+    .featured-plot:last-child { border-bottom: none; }
+    .featured-plot img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.85; transition: opacity 0.3s; }
+    .featured-plot:hover img { opacity: 1; }
+    .featured-plot-label {
+      position: absolute; bottom: 8px; left: 10px;
+      font-size: 0.68rem; color: var(--text2); background: rgba(15,17,23,0.8);
+      padding: 3px 8px; border-radius: 4px;
+    }
+
     /* CONTACT */
     .contact-inner { max-width: 560px; }
     .contact-inner p { color: var(--text2); margin-bottom: 32px; font-size: 0.95rem; }
@@ -331,6 +381,9 @@
       section { padding: 64px 6%; }
       .exp-item { grid-template-columns: 1fr; gap: 8px; }
       .stats { gap: 28px; }
+      .about-grid { grid-template-columns: 1fr; gap: 32px; }
+      .featured-project-inner { grid-template-columns: 1fr; }
+      .featured-project-visuals { display: none; }
     }
   </style>
 </head>
@@ -342,6 +395,7 @@
   <nav>
     <div class="nav-logo">Nilofar Siddiqui</div>
     <ul class="nav-links">
+      <li><a href="#about">About</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#skills">Skills</a></li>
@@ -387,10 +441,91 @@
     </div>
   </section>
 
+  <!-- ABOUT -->
+  <section id="about">
+    <span class="section-tag reveal">About</span>
+    <h2 class="reveal reveal-delay-1">Who I <span class="dim">am</span></h2>
+    <div class="about-grid reveal reveal-delay-2">
+      <div class="about-text">
+        <p>I'm a Data Analyst and Analytics Engineer based in Berlin, with an M.Sc. in Data Science from Berliner Hochschule fur Technik and over 10 years of experience across financial services, fintech, and technology.</p>
+        <p>My work sits at the intersection of engineering and insight: I build the data infrastructure that makes reliable analytics possible, then use it to answer the questions that actually move businesses forward. At Mister Sandman I owned the full stack from dbt pipelines to executive dashboards to predictive models.</p>
+        <p>I'm drawn to roles where the data team is close to the business, where I can shape both how data is built and how it is used.</p>
+      </div>
+      <div class="about-highlights">
+        <div class="about-highlight">
+          <svg class="about-highlight-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <div>
+            <div class="about-highlight-title">End-to-end analytics</div>
+            <div class="about-highlight-desc">From raw data modelling in dbt to predictive Python models to Power BI dashboards for leadership</div>
+          </div>
+        </div>
+        <div class="about-highlight">
+          <svg class="about-highlight-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <div>
+            <div class="about-highlight-title">Stakeholder-first mindset</div>
+            <div class="about-highlight-desc">Translating complex analytical output into clear narratives for Finance, Operations, and Commercial teams</div>
+          </div>
+        </div>
+        <div class="about-highlight">
+          <svg class="about-highlight-icon" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          <div>
+            <div class="about-highlight-title">10+ years, 5 companies</div>
+            <div class="about-highlight-desc">TCS, HCL, Morgan Stanley, Access Microfinance, Mister Sandman - across Mumbai, London, and Berlin</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- PROJECTS -->
   <section id="projects">
     <span class="section-tag reveal">Projects</span>
     <h2 class="reveal reveal-delay-1">Things I've <span class="dim">built</span></h2>
+
+    <!-- FEATURED PROJECT -->
+    <div class="featured-project reveal reveal-delay-2">
+      <div class="featured-project-inner">
+        <div class="featured-project-content">
+          <div>
+            <div class="featured-label">Featured Project</div>
+            <div class="featured-title">Wine Quality Prediction</div>
+            <div class="featured-desc">Compared a pruned regression tree against a Generalized Additive Model (GAM) built through forward selection to predict red wine quality from 11 physicochemical properties. Evaluated on a held-out test set with 10-fold cross-validation.</div>
+            <div class="featured-metrics">
+              <div>
+                <div class="featured-metric-val">0.634</div>
+                <div class="featured-metric-label">GAM RMSE</div>
+              </div>
+              <div>
+                <div class="featured-metric-val">0.646</div>
+                <div class="featured-metric-label">Correlation</div>
+              </div>
+              <div>
+                <div class="featured-metric-val">R</div>
+                <div class="featured-metric-label">Language</div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <span class="tag">GAM</span><span class="tag">rpart</span><span class="tag">mgcv</span><span class="tag">ggplot2</span><span class="tag">caret</span>
+            <a class="project-link" href="https://github.com/NilofarSiddiqui/wine-quality-prediction-r" target="_blank" rel="noopener" style="margin-left:auto;">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </div>
+        <div class="featured-project-visuals">
+          <div class="featured-plot">
+            <img src="https://raw.githubusercontent.com/NilofarSiddiqui/wine-quality-prediction-r/main/plots/gam_predicted_vs_true.png" alt="GAM predicted vs true" loading="lazy" />
+            <div class="featured-plot-label">GAM: Predicted vs True</div>
+          </div>
+          <div class="featured-plot">
+            <img src="https://raw.githubusercontent.com/NilofarSiddiqui/wine-quality-prediction-r/main/plots/quality_distribution.png" alt="Quality distribution" loading="lazy" />
+            <div class="featured-plot-label">Quality Distribution</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="projects-grid">
 
       <div class="project-card reveal reveal-delay-2">
