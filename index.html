@@ -285,6 +285,24 @@
     .edu-school { font-size: 0.85rem; color: var(--accent2); margin-top: 3px; }
     .edu-date { font-size: 0.78rem; color: var(--text2); margin-top: 3px; }
 
+    /* CERTIFICATIONS */
+    .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .cert-card {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .cert-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .cert-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: rgba(79,142,247,0.12);
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+    .cert-name { font-size: 0.88rem; font-weight: 600; line-height: 1.4; }
+    .cert-issuer { font-size: 0.76rem; color: var(--accent2); margin-top: 3px; }
+
     /* CONTACT */
     .contact-inner { max-width: 560px; }
     .contact-inner p { color: var(--text2); margin-bottom: 32px; font-size: 0.95rem; }
@@ -328,6 +346,7 @@
       <li><a href="#experience">Experience</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#education">Education</a></li>
+      <li><a href="#certifications">Certifications</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
@@ -661,6 +680,55 @@
     </div>
   </section>
 
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <span class="section-tag reveal">Certifications</span>
+    <h2 class="reveal reveal-delay-1">What I've <span class="dim">earned</span></h2>
+    <div class="certs-grid">
+
+      <div class="cert-card reveal reveal-delay-1">
+        <div class="cert-icon">☁️</div>
+        <div>
+          <div class="cert-name">Microsoft Certified: Azure Data Fundamentals</div>
+          <div class="cert-issuer">Microsoft</div>
+        </div>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-2">
+        <div class="cert-icon">🏆</div>
+        <div>
+          <div class="cert-name">Lean Six Sigma Green Belt</div>
+          <div class="cert-issuer">Six Sigma</div>
+        </div>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-3">
+        <div class="cert-icon">🔄</div>
+        <div>
+          <div class="cert-name">Agile with Atlassian Jira</div>
+          <div class="cert-issuer">Atlassian</div>
+        </div>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-4">
+        <div class="cert-icon">💻</div>
+        <div>
+          <div class="cert-name">Google IT Support Certificate</div>
+          <div class="cert-issuer">Google</div>
+        </div>
+      </div>
+
+      <div class="cert-card reveal reveal-delay-5">
+        <div class="cert-icon">🇩🇪</div>
+        <div>
+          <div class="cert-name">Zertifikat Deutsch / telc Deutsch B1</div>
+          <div class="cert-issuer">telc GmbH</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- CONTACT -->
   <section id="contact">
     <span class="section-tag reveal">Contact</span>
@@ -672,7 +740,7 @@
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
           nilofar.siddiqui.1728@gmail.com
         </a>
-        <a class="contact-link" href="https://www.linkedin.com/in/nilofar-siddiqui" target="_blank" rel="noopener">
+        <a class="contact-link" href="https://www.linkedin.com/in/nilofarsiddiqui" target="_blank" rel="noopener">
           <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
           LinkedIn - Nilofar Siddiqui
         </a>
